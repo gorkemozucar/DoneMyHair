@@ -1,0 +1,158 @@
+﻿@model HairDresser1.Data.Saloon
+@inject Microsoft.AspNetCore.Identity.SignInManager<HairDresser1.Data.ApplicationUser> _signInManager
+@{
+    ViewBag.Title = Model.SaloonName + " Saloon";
+    List<HairDresser1.Data.HairDresser> dressers = ViewBag.dressers;
+    
+}
+
+
+<section id="saloon-main">
+    <div class="title"><h1 class="h1">@Model.SaloonName</h1></div>
+    <hr width="15%">
+    <div class="container-saloon">
+        <aside class="aside">
+            <div class="saloon-left-side">
+                <h5 class="h4">Saloon Owner :</h5>
+                <div class="desc">
+                    <p>@Model.SaloonOwnerName</p>
+                </div>
+            </div>
+            <div class="saloon-left-side">
+                <h5 class="h4">Description :</h5>
+                <div class="desc">
+                    <p>@Model.Description</p>
+                </div>
+            </div>
+            <div class="saloon-left-side">
+                <h5 class="h4">Adress :</h5>
+                <div class="desc">
+                    <p>@Model.SaloonAdress</p>
+                </div>
+            </div>
+            <div class="saloon-left-side">
+                <h5 class="h4">Email :</h5>
+                <div class="desc">
+                    <p>@Model.Email</p>
+                </div>
+            </div>
+            <div class="saloon-left-side">
+                <h5 class="h4">Phone Number :</h5>
+                <div class="desc">
+                    <p>@Model.PhoneNumber</p>
+                </div>
+            </div>
+            @if (_signInManager.IsSignedIn(User) && User.FindFirst("UserRole").Value == "saloon" && User.FindFirst("UserID").Value == Model.SaloonOwnerID)
+            {
+                <div class="saloon-left-side">
+
+                    <div class="desc">
+                        <a asp-action="Edit" asp-controller="Saloon" asp-route-id="@Model.ID">Edit</a>
+                        <a  asp-action="Delete" asp-controller="Saloon" asp-route-id="@Model.ID">Delete</a>
+                    </div>
+                </div>
+            }
+            @if (_signInManager.IsSignedIn(User) && User.FindFirst("UserRole").Value == "saloon" && User.FindFirst("UserID").Value == Model.SaloonOwnerID)
+            {
+                <div class="saloon-left-side">
+                    <h5 class="h4" style="margin-bottom: 1rem;">New Hairdresser :</h5>
+                    <div class="desc">
+                        @{TempData["sid"] = Model.ID;}
+                        <a asp-action="Create" asp-controller="HairDresser">Add</a>
+                        <a asp-action="GetAllAppointments" asp-controller="Saloon" asp-route-id="@Model.ID">See All Appointments</a>
+                    </div>
+                </div>
+            }
+            <div class="saloon-left-side-images">
+                <h5 class="h4">Photos :</h5>
+                <img class="img-fluid" style="border-radius:4px" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Images) " />
+                @*<img src="~/Content/assets/images/pexels-kaique-rocha-331989.jpg" alt="" class="img-fluid">
+            <img src="~/Content/assets/images/pexels-thgusstavo-santana-1813346.jpg" alt="" class="img-fluid">
+            <img src="~/Content/assets/images/pexels-valeria-boltneva-696287.jpg" alt="" class="img-fluid">*@
+            </div>
+            <section id="slides">
+                <h3 class="h3">Saloon Photos</h3>
+                <div class="slideshow-container">
+
+
+                    <div class="mySlides" style="display: block;">
+
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Images) " style="width:100%;" loading="lazy">
+                        <!-- <h3 style="text-align: center; margin-bottom: 1rem; font-size: 30px; color: #e65c00">Lorem</h3> -->
+                        <!-- <div class="text"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic ex nemo in praesentium? Unde, esse id, amet de </div> -->
+                    </div>
+
+                    <div class="mySlides">
+
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Images) " style="width:100%" loading="lazy">
+                        <!-- <h3 style="text-align: center; margin-bottom: 1rem; font-size: 30px; color: #e65c00">Lorem</h3> -->
+                        <!-- <div class="text"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic ex nemo in praesentium? Unde, esse id, amet de </div> -->
+                    </div>
+                    <div class="mySlides">
+
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Images) " style="width:100%" loading="lazy">
+                        <!-- <h3 style="text-align: center; margin-bottom: 1rem; font-size: 30px; color: #e65c00">Lorem</h3> -->
+                        <!-- <div class="text"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic ex nemo in praesentium? Unde, esse id, amet de </div> -->
+                    </div>
+                    <div class="mySlides">
+
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Images) " style="width:100%" loading="lazy">
+                        <!-- <h3 style="text-align: center; margin-bottom: 1rem; font-size: 30px; color: #e65c00">Lorem</h3> -->
+                        <!-- <div class="text"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic ex nemo in praesentium? Unde, esse id, amet de </div> -->
+                    </div>
+
+
+                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                </div>
+                <br>
+
+                <div style="text-align:center">
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                    <span class="dot" onclick="currentSlide(4)"></span>
+
+                </div>
+
+
+            </section>
+        </aside>
+        <div class="saloon-main">
+            <h2 class="text-center h1 m-5">- Hairdressers -</h2>
+            <hr width="100%" style="margin-bottom:1rem;">
+
+            @foreach (var item in dressers)
+            {
+
+                <div class="card-saloon">
+                    <div class="saloon-image">
+                        <img class="img-fluid" style="border-radius:4px" src="data:image/jpeg;base64,@Convert.ToBase64String(item.Image) " />
+                    </div>
+                    <div class="saloon-content">
+                        <div class="saloon-header">
+                            <h1 class="h1 m-1">@item.HairdresserName @item.HairdresserSurname</h1>
+                            <hr width="150px" style="margin-left: 10px;">
+                        </div>
+                        <div class="saloon-body">
+
+                            <p class="saloon-body-title">Hairdresser Description</p>
+                            <p>@item.HairdresserDescription</p>
+
+                        </div>
+                     
+                        <div class="saloon-footer">
+                            @if (_signInManager.IsSignedIn(User) && User.FindFirst("UserRole").Value == "saloon" && User.FindFirst("UserID").Value == Model.SaloonOwnerID)
+                            {
+                                <a asp-action="Delete" asp-controller="HairDresser" asp-route-id="@item.ID">Remove</a>
+                            }
+                                <a asp-action="Details" asp-controller="HairDresser" asp-route-id="@item.ID">Appointment</a>
+                            </div>
+                        </div>
+                </div>
+            }
+
+        </div>
+    </div>
+
+</section>

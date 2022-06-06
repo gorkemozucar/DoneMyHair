@@ -1,0 +1,163 @@
+﻿@model MultiHairdresser
+@inject Microsoft.AspNetCore.Identity.SignInManager<HairDresser1.Data.ApplicationUser> _signInManager
+
+@{
+    ViewData["Title"] = "Details";
+    TempData["hairid"] = Model.hairDresserModel.ID;
+    TempData["salonid"] = Model.hairDresserModel.SaloonID;
+
+}
+
+<section id="hairdresser-main">
+    <div class="title">
+        <h1 class="h1">@Model.hairDresserModel.HairdresserName @Model.hairDresserModel.HairdresserSurname</h1>
+        <hr width="15%">
+    </div>
+    <div class="container-hairdresser">
+        <aside class="aside">
+
+
+            <div class="hairdresser-left-side">
+                <h5 class="h4">Description :</h5>
+                <div class="desc">
+                    <p>
+                        @Model.hairDresserModel.HairdresserDescription
+                    </p>
+                </div>
+            </div>
+            <div class="hairdresser-left-side">
+                <h5 class="h4">Email :</h5>
+                <div class="desc">
+                    <p>
+                        @Model.hairDresserModel.HairdresserEmail
+                    </p>
+                </div>
+            </div>
+
+            <div class="hairdresser-left-side">
+                <h5 class="h4">Phone Number :</h5>
+                <div class="desc">
+                    <p>@Model.hairDresserModel.HairdresserPhoneNumber</p>
+                </div>
+            </div>
+            @*<div class="hairdresser-left-side">
+                    <h5 class="h4">Waiting Appointments :</h5>
+                    <div class="desc">
+                        <p> For Hairdresser 1 : @Html.ActionLink("Go To Appointment", "WaitingAppointments", "Saloon")</p>
+                        <p> For Hairdresser 2 :  @Html.ActionLink("Go To Appointment", "WaitingAppointments", "Saloon")</p>
+                        <p> For Hairdresser 3 :  @Html.ActionLink("Go To Appointment", "WaitingAppointments", "Saloon")</p>
+
+
+                    </div>
+                </div>*@
+
+        </aside>
+        <div class="hairdresser-main">
+
+            <div class="container-hairdresser-form">
+
+                @if (_signInManager.IsSignedIn(User) && User.FindFirst("UserRole").Value == "user")
+                {
+                    <form asp-action="MakeAppointment" method="post" enctype="multipart/form-data" asp-controller="HairDresser">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="appointment.AppointmentDate" class="control-label"></label>
+                            <input type="datetime-local" id="dateTimeValue" class="form-control" asp-for="appointment.AppointmentDate" />
+                            <span asp-validation-for="appointment.AppointmentDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="calendar__button calendar__button--primary" />
+                        </div>
+                    </form>
+                }
+                @*<div class="form-holder">
+                        <label for="name">Name <span>*</span></label>
+                        <input type="text" placeholder="İsim">
+                    </div>
+                    <div class="form-holder">
+                        <label for="name">Surname <span>*</span></label>
+                        <input type="text" placeholder="Soyisim">
+                    </div>
+                    <div class="form-holder">
+                        <label for="name">Phone Number <span>*</span></label>
+                        <input type="tel" placeholder="Telefon Numarası">
+                    </div>
+                    <div class="form-holder">
+                        <label for="name">Email <span>*</span></label>
+                        <input type="email" placeholder="Email">
+                    </div>
+
+                    <div class="form-holder">
+                        <a href="#">Make an Appointment</a>
+                    </div>*@
+            </div>
+            @foreach (var item in Model.commentsModel)
+            {
+                <div class="card-comment">
+
+                    <div class="comment-content">
+                        <div class="comment-header">
+                            <h1 class="h1 m-1">@item.UserName</h1><span>@item.Time</span>
+                            <hr width="150px" style="margin-left: 10px;">
+                        </div>
+                        <div class="comment-body">
+
+                            <p>
+                                @item.Content
+                            </p>
+
+                        </div>
+                        @if (_signInManager.IsSignedIn(User) && User.FindFirst("UserRole").Value == "saloon" && User.FindFirst("UserID").Value == TempData["owneridd"].ToString())
+                        {
+                            <a asp-action="DeleteComment" asp-controller="Hairdresser" asp-route-id="@item.ID" class="btn btn-danger">Delete</a>
+                        }
+                    </div>
+                </div>
+            }
+
+
+            @if (_signInManager.IsSignedIn(User) && User.FindFirst("UserRole").Value == "user")
+            {
+                <form asp-action="MakeComment" method="post" enctype="multipart/form-data" asp-controller="HairDresser">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="commentModel.Content" class="control-label"></label>
+                        <textarea asp-for="commentModel.Content" class="form-control"></textarea>
+                        <span asp-validation-for="commentModel.Content" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Comment" class="btn btn-primary" />
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+
+</section>
+@section scripts{
+  
+    <script type="text/javascript">
+    var dateTimeValue = document.getElementById("dateTimeValue");
+        var date = new Date();
+        var dateTimeNow = date.getMinutes();
+
+
+        var arr = [0, 30];
+
+        for (var i = 0; i < arr.length; i++) {
+
+            dateTimeValue.value = `2022-01-10T13:${arr[i]}`;
+        }
+
+                //console.log(dateTimeValue.value)
+
+
+
+
+
+       </script>
+}

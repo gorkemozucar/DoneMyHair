@@ -1,0 +1,251 @@
+﻿@model List<AppointmentModel>
+@{
+    string months = "";
+}
+<h1>Appointments</h1>
+<hr />
+@*<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Hairdresser Name</th>
+            <th scope="col">Hairdresser Surname</th>
+            <th scope="col">Day</th>
+            <th scope="col">Month</th>
+            <th scope="col">Year</th>
+            <th scope="col">Time Of Day</th>
+            <th scope="col">Day of Week</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Customer Surname</th>
+            <th scope="col">Customer Email</th>
+            <th scope="col">Customer PhoneNumber</th>
+            <th scope="col">*</th>
+
+
+
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        var i = 1;
+        @switch (item.AppointmentDate.Month)
+        {
+            case 1:
+                months = "Jan";
+                break;
+
+            case 2:
+                months = "Feb";
+                break;
+            case 3:
+                months = "Mar";
+                break;
+            case 4:
+                months = "Apr";
+                break;
+            case 5:
+                months = "May";
+                break;
+            case 6:
+                months = "Jun";
+                break;
+            case 7:
+                months = "Jul";
+                break;
+            case 8:
+                months = "Aug";
+                break;
+            case 9:
+                months = "Sep";
+                break;
+            case 10:
+                months = "Oct";
+                break;
+            case 11:
+                months = "Nov";
+                break;
+            case 12:
+                months = "Dec";
+                break;
+            default:
+                months = "";
+                break;
+
+
+        }
+
+        <tbody>
+            <tr>
+                <th scope="row">@i</th>
+                <td>@item.HairDresser.HairdresserName</td>
+                <td> @item.HairDresser.HairdresserSurname</td>
+                <td>@item.AppointmentDate.Day</td>
+                <td>@months</td>
+                <td> @item.AppointmentDate.Year</td>
+                <td>@item.AppointmentDate.TimeOfDay</td>
+                <td>@item.AppointmentDate.DayOfWeek</td>
+                <td> @item.User.UserName</td>
+                <td>@item.User.Surname</td>
+                <td>@item.User.Email</td>
+                <td> @item.User.PhoneNumber</td>
+                <td>
+
+                    <a class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">
+                        Delete
+                    </a>
+                </td>
+
+            </tr>
+
+        </tbody>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-body ">
+                        <a class="btn btn-danger" id="deleteapp" asp-controller="Saloon" asp-action="DeleteAppointment" asp-route-id="@item.ID">Delete</a>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        i++;
+
+    }
+</table>*@
+@*@section script{
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#deleteapp").click(alert("Are you sure to delete this appoinment"))
+            })  </script>
+    }*@ 
+    
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Hairdresser Name</th>
+            <th scope="col">Hairdresser Surname</th>
+            <th scope="col">Day</th>
+            <th scope="col">Month</th>
+            <th scope="col">Year</th>
+            <th scope="col">Time Of Day</th>
+            <th scope="col">Day of Week</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Customer Surname</th>
+            <th scope="col">Customer Email</th>
+            <th scope="col">Customer PhoneNumber</th>
+            <th scope="col">*</th>
+
+
+
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        var i = 1;
+        @switch (item.AppointmentDate.Month)
+        {
+            case 1:
+                months = "Jan";
+                break;
+
+            case 2:
+                months = "Feb";
+                break;
+            case 3:
+                months = "Mar";
+                break;
+            case 4:
+                months = "Apr";
+                break;
+            case 5:
+                months = "May";
+                break;
+            case 6:
+                months = "Jun";
+                break;
+            case 7:
+                months = "Jul";
+                break;
+            case 8:
+                months = "Aug";
+                break;
+            case 9:
+                months = "Sep";
+                break;
+            case 10:
+                months = "Oct";
+                break;
+            case 11:
+                months = "Nov";
+                break;
+            case 12:
+                months = "Dec";
+                break;
+            default:
+                months = "";
+                break;
+
+
+        }
+
+        <tbody>
+            <tr>
+                <th scope="row">@i</th>
+                <td>@item.HairDresser.HairdresserName</td>
+                <td> @item.HairDresser.HairdresserSurname</td>
+                <td>@item.AppointmentDate.Day</td>
+                <td>@months</td>
+                <td> @item.AppointmentDate.Year</td>
+                <td>@item.AppointmentDate.TimeOfDay</td>
+                <td>@item.AppointmentDate.DayOfWeek</td>
+                <td> @item.User.UserName</td>
+                <td>@item.User.Surname</td>
+                <td>@item.User.Email</td>
+                <td> @item.User.PhoneNumber</td>
+                <td>
+
+                    <a class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">
+                        Delete
+                    </a>
+                </td>
+
+            </tr>
+
+        </tbody>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-body ">
+                        <p>Are u sure to delete this appoinment.</p>
+                        <a class="btn btn-danger" id="deleteapp" asp-controller="Saloon" asp-action="DeleteAppointment" asp-route-id="@item.ID">Delete</a>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        i++;
+
+    }
+</table>
+@*@section script{
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#deleteapp").click(alert("Are you sure to delete this appoinment"))
+            })  </script>
+    }*@

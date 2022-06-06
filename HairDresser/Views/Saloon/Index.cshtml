@@ -1,0 +1,30 @@
+﻿@model IEnumerable<HairDresser1.Data.Saloon>
+    <section id="main">
+        <div class="container-main">
+            @foreach (var item in Model)
+            {
+
+                <div class="card-saloon">
+                    <div class="saloon-image">
+                        <img class="img-responsive full-width img-fluid" style="border-radius:4px" src="data:image/jpeg;base64,@Convert.ToBase64String(item.Images) " />
+                    </div>
+                    <div class="saloon-content">
+                        <div class="saloon-header">
+                            <h1 class="h1 m-1">@item.SaloonName</h1>
+                            <hr width="150px" style="margin-left: 10px;">
+                        </div>
+                        <div class="saloon-body">
+
+                            <p class="saloon-body-title">Saloon Description</p>
+                            <p>@item.Description</p>
+
+                        </div>
+                        <div class="saloon-footer">
+                            <h4 class="h3"> Saloon Owner: <span>@item.SaloonOwnerName</span></h4>
+                            <a asp-action="Details" asp-controller="Saloon" asp-route-id="@item.ID">Go to Saloon</a>
+                        </div>
+                    </div>
+                </div>                          
+            }
+        </div>
+    </section>

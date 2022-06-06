@@ -1,0 +1,72 @@
+﻿@model SaloonModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Saloon</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data" asp-controller="Saloon">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="SaloonName" class="control-label"></label>
+                <input asp-for="SaloonName" class="form-control" />
+                <span asp-validation-for="SaloonName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="SaloonOwnerID" class="control-label"></label>
+                <input asp-for="SaloonOwnerID" class="form-control" />
+                <span asp-validation-for="SaloonOwnerID" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="SaloonOwnerName" class="control-label">Saloon Owner Name</label>
+                <input asp-for="SaloonOwnerName" class="form-control" />
+                <span asp-validation-for="SaloonOwnerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SaloonAdress" class="control-label"></label>
+                <input asp-for="SaloonAdress" class="form-control" />
+                <span asp-validation-for="SaloonAdress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="Image" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,102 @@
+﻿@model List<AppointmentModel>
+
+
+
+<h1>My Appointments</h1>
+@foreach (var item in Model)
+{
+    string months = "";
+    <div class="card-saloon">
+        <div class="saloon-image">
+            <img class="img-responsive full-width img-fluid" style="border-radius:4px" src="data:image/jpeg;base64,@Convert.ToBase64String(item.Saloon.Images) " />
+        </div>
+        <div class="saloon-content">
+            <div class="saloon-header">
+                <h1 class="h1 m-1">@item.HairDresser.HairdresserName @item.HairDresser.HairdresserSurname</h1>
+                <hr width="150px" style="margin-left: 10px;">
+            </div>
+            <div class="saloon-body">
+                @switch (item.AppointmentDate.Month)
+                {
+                    case 1:
+                        months = "Jan";
+                        break;
+
+                    case 2:
+                        months = "Feb";
+                        break;
+                    case 3:
+                        months = "Mar";
+                        break;
+                    case 4:
+                        months = "Apr";
+                        break;
+                    case 5:
+                        months = "May";
+                        break;
+                    case 6:
+                        months = "Jun";
+                        break;
+                    case 7:
+                        months = "Jul";
+                        break;
+                    case 8:
+                        months = "Aug";
+                        break;
+                    case 9:
+                        months = "Sep";
+                        break;
+                    case 10:
+                        months = "Oct";
+                        break;
+                    case 11:
+                        months = "Nov";
+                        break;
+                    case 12:
+                        months = "Dec";
+                        break;
+                    default:
+                        months = "";
+                        break;
+
+
+                }
+
+                <p>Date</p>
+                <p>@item.AppointmentDate.Day @months @item.AppointmentDate.Year </p>
+                <p>Hours</p>
+                <p>@item.AppointmentDate.TimeOfDay</p>
+                <p>@item.AppointmentDate.DayOfWeek</p>
+
+            </div>
+
+            <div class="saloon-footer">
+
+                
+                <a data-toggle="modal" style="color:white;" data-target="#exampleModal">
+                    Delete
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                
+                <div class="modal-body ">
+                    <p>Are u sure to delete this appoinment</p>
+                    <a class="btn btn-danger"asp-action="DeleteAppointment" asp-controller="HairDresser" asp-route-id="@item.ID">Delete</a>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
